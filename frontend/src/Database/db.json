@@ -1,0 +1,36 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Vinit Sharma",
+            "Phone": "7509648995",
+            "email": "Vinit91.dev@gmail.com",
+            "department": "IT",
+            "designation": "JS Developer"
+        },
+        {
+            "id": 2,
+            "name": "Vinit Sharma",
+            "Phone": "7509648995",
+            "email": "Vinit91.dev@gmail.com",
+            "department": "IT",
+            "designation": "JS Developer"
+        },
+        {
+            "id": 3,
+            "name": "Vinit Sharma",
+            "Phone": "7509648995",
+            "email": "Vinit91.dev@gmail.com",
+            "department": "IT",
+            "designation": "JS Developer"
+        },
+        {
+            "id": 4,
+            "name": "Vinit Sharma",
+            "Phone": "7509648995",
+            "email": "Vinit91.dev@gmail.com",
+            "department": "IT",
+            "designation": "JS Developer"
+        }
+    ]
+}
