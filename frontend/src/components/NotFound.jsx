@@ -10,7 +10,7 @@ const stylist = makeStyles({
 
     }
 
-})
+});
 
 
 export default function NotFound(){

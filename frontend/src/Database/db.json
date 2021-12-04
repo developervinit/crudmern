@@ -1,36 +1,44 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "name": "Vinit Sharma",
-            "Phone": "7509648995",
-            "email": "Vinit91.dev@gmail.com",
-            "department": "IT",
-            "designation": "JS Developer"
-        },
-        {
-            "id": 2,
-            "name": "Vinit Sharma",
-            "Phone": "7509648995",
-            "email": "Vinit91.dev@gmail.com",
-            "department": "IT",
-            "designation": "JS Developer"
-        },
-        {
-            "id": 3,
-            "name": "Vinit Sharma",
-            "Phone": "7509648995",
-            "email": "Vinit91.dev@gmail.com",
-            "department": "IT",
-            "designation": "JS Developer"
-        },
-        {
-            "id": 4,
-            "name": "Vinit Sharma",
-            "Phone": "7509648995",
-            "email": "Vinit91.dev@gmail.com",
-            "department": "IT",
-            "designation": "JS Developer"
-        }
-    ]
+  "users": [
+    {
+      "name": "Elon Musk",
+      "designation": "Senior Developer",
+      "department": "R & D",
+      "email": "elonmusk@space.com",
+      "Phone": "774374739473",
+      "id": 1
+    },
+    {
+      "name": "Bill Gates",
+      "designation": "Senior Executive",
+      "department": "Product development",
+      "email": "billgate@microsoft.com",
+      "Phone": "874838937498",
+      "id": 2
+    },
+    {
+      "name": "Lerry Page",
+      "designation": "Senior Developer",
+      "department": "Product development",
+      "email": "lerry@gmail.com",
+      "Phone": "84373289749",
+      "id": 3
+    },
+    {
+      "name": "Mark Jukerberg",
+      "designation": "Developer and Product Manager ",
+      "department": "IT services",
+      "email": "mark@facebook.com",
+      "Phone": "874343773474",
+      "id": 4
+    },
+    {
+      "name": "Jeff Bezos",
+      "designation": "CEO",
+      "department": "Admin department",
+      "email": "jeff@gmail.com",
+      "Phone": "74874384389",
+      "id": 5
+    }
+  ]
 }

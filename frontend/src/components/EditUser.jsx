@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { addNewUser } from "../service/api.js"
+import React, { useState, useEffect } from 'react';
+import { getEditUser, updateUser } from "../service/api.js"
 import { FormGroup, FormControl, Input, InputLabel, Button, makeStyles, Select, MenuItem } from "@material-ui/core";
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom';
 
-//material-ui opbjects for css-classes
+
 const stylClasses = makeStyles({
   head: {
     marginTop: "100px",
@@ -18,20 +18,17 @@ const stylClasses = makeStyles({
     marginTop: "32px",
     backgroundColor: "#cdeea7",
     fontSize: "16px",
-    color: "#837b7d",
-    fontFamily: "Red Hat Display, sans-serif",
-    boxShadow: "0px 0px 6px 0px #c7c7c7"
+    color: "#6a6264"
   }
-})
+});
 
+//this component to edit perticular user's data
+export default function EditUser({match}){
 
-
-//AddUser component
-export default function AddUser(){
-
-  const nextPage = useHistory(); //this hook is to send user on next-page after form is submit.
-  const back = useHistory();
+  const nextPage = useHistory(); 
   const stylClass = stylClasses();
+  const { id } = useParams();
+  
   const [ stuObj, setStuObj ] = useState({
     name: "",
     designation: "",
@@ -40,11 +37,17 @@ export default function AddUser(){
     Phone: ""
   });
 
-  function goBackToPage(){
-    back.goBack();
-  }
+  useEffect(() => {
+    getEditUserData();
+  }, []);
 
-  //getting values from input-form
+  //fetching user-value according id, for pre filled fields.
+  async function getEditUserData(){
+    const userObj = await getEditUser(id);
+    setStuObj(userObj.data);
+}
+
+  //to get value from input-field form
   const getValue = (e) => {
 
     const name = e.target.name;
@@ -58,25 +61,21 @@ export default function AddUser(){
     });
   }
 
-  //put data into data-base on invoking this function
-  async function formSubmit(){
-       await addNewUser(stuObj);
-       alert("Form is Submited");
-       nextPage.push("/users")
+  //to submit user's data into database
+  async function submitData(){
+      await updateUser(id, stuObj); 
+      alert("Form is Edited Succesfully");
+      nextPage.push("/users") //redirecting to users-page
   }
 
-  //Note - field 'id' is automatically handeled by 'json-server', we did not create it here.
-
   return(<>
-             <h1 className={stylClass.head}>Add Employee</h1>
-             <Button onClick={goBackToPage}>GoBack</Button>
-
-             <FormGroup className={stylClass.formG}>
+             <h1 className={stylClass.head}>Edit Employee Details</h1>
+             
+             <FormGroup  className={stylClass.formG}>
                <FormControl>
                  <InputLabel>Name</InputLabel>
                  <Input
-                      required={true}
-                      autoComplete="nope"
+                      
                       onChange={getValue} 
                       name="name"
                       value={stuObj.name}
@@ -85,8 +84,7 @@ export default function AddUser(){
                <FormControl>
                  <InputLabel>Designation</InputLabel>
                  <Input
-                      required={true}
-                      autoComplete="eope"
+                      
                       onChange={getValue} 
                       name="designation"
                       value={stuObj.designation}
@@ -98,7 +96,7 @@ export default function AddUser(){
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         
-                        required={true}
+                        
                         onChange={getValue}
                         name="department"
                         value={stuObj.department}
@@ -115,8 +113,7 @@ export default function AddUser(){
                <FormControl>
                  <InputLabel>Email</InputLabel>
                  <Input
-                      required={true}
-                      autoComplete="gope"
+                      
                       onChange={getValue} 
                       name="email"
                       value={stuObj.email}
@@ -125,13 +122,12 @@ export default function AddUser(){
                <FormControl>
                  <InputLabel>Phone</InputLabel>
                  <Input
-                      required={true}
                       onChange={getValue} 
                       name="Phone"
                       value={stuObj.Phone}
                  />
                </FormControl>
-               <Button type="submit" onClick={formSubmit} className={stylClass.btn}>Add User</Button>
-            </FormGroup>
+               <Button type="submit" onClick={submitData} className={stylClass.btn}>Edit</Button>
+             </FormGroup>
           </>)
 }

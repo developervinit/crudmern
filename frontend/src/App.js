@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar.jsx";
 import Home from "./components/Home.jsx";
 import AddUser from './components/AddUser.jsx';
 import AllUser from './components/AllUser.jsx';
+import EditUser from './components/EditUser.jsx';
 import NotFound from "./components/NotFound.jsx"
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -13,8 +14,9 @@ function App() {
               <NavBar />
                <Switch>
                 <Route  exact path="/" component={Home} />
-                <Route  exact path="/users" component={AddUser} />
-                <Route  exact path="/all" component={AllUser} /> 
+                <Route  exact path="/newuser" component={AddUser} />
+                <Route  exact path="/users" component={AllUser} />
+                <Route exact path="/edit/:id" component={EditUser}/>
                 <Route component={NotFound} />
                </Switch>
            </BrowserRouter>

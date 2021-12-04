@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import getUsers from "../service/api.js";
-import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { getUsers, deleteOneUser } from "../service/api.js";
+import { Link } from 'react-router-dom';
+import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
 
 const classStyl = makeStyles({
     forH1:{
@@ -29,42 +30,61 @@ const classStyl = makeStyles({
             
         }
     },
+    messg: {
+        color: "dimgrey",
+        margin: "22px",
+        fontFamily: "Red Hat Display, sans-serif",
+    }
 
 })
 
-
+//this component to show all-user data
 export default function AllUser(){
 
     const [ users, setUsers ] = useState([]);
-
     const classes = classStyl();
 
+    //fetching all-employees data from the database
     const getAllUsers = async () => {
         const response = await getUsers();
         setUsers(response.data);
     }
-
+    
     useEffect(() => {
         getAllUsers();
     }, []);
 
+    //to delete user with condition
+    async function deleteUser(id){
+        const delValue = prompt("Write 'DELETE' in capital to delete user");
+
+        if(delValue !== "DELETE"){
+            alert(`You did not Write 'DELETE'`);
+        }  else {
+            await deleteOneUser(id);
+            getAllUsers();
+        }       
+        
+    }
+    
+
      return(<>
-              <h1 className={classes.forH1}>List of Employees</h1>
-              
+              <h1 className={classes.forH1}></h1>
                  <Table  className={classes.table} aria-label="simple table">
                     <TableHead>
                       <TableRow className={classes.headRW}>
                         <TableCell>id</TableCell>
                         <TableCell>Name</TableCell>
-                        <TableCell>Designation(g)</TableCell>
+                        <TableCell>Designation</TableCell>
                         <TableCell>Department</TableCell>
                         <TableCell>Email</TableCell>
                         <TableCell>Phone</TableCell>
+                        <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {users.map((user) => (
-                        <TableRow className={classes.tbleBdRw} key={user.id}>
+                      {users.length !== 0 ? users.map((user) => (
+                        <TableRow id={user.id} className={classes.tbleBdRw} key={user.id}>
                           <TableCell component="th" scope="row">
                           {user.id}
                           </TableCell>
@@ -73,9 +93,16 @@ export default function AllUser(){
                           <TableCell>{user.department}</TableCell>
                           <TableCell>{user.email}</TableCell>
                           <TableCell>{user.Phone}</TableCell>
+                          <TableCell>
+                               <Button component={Link} to={`/edit/${user.id}`}>Edit</Button>
+                               <Button onClick={() => deleteUser(user.id)} >Delete</Button>
+                          </TableCell>
                        </TableRow>
-                       ))}
+                       )) : <h2 className={classes.messg}>There is NO Employee List to Show</h2>
+                      }
                    </TableBody>
                   </Table>
-           </>)
+              
+
+              </>)
 }
