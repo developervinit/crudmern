@@ -2,9 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { getEditUser, updateUser } from "../service/api.js"
 import { FormGroup, FormControl, Input, InputLabel, Button, makeStyles, Select, MenuItem } from "@material-ui/core";
 import { useHistory, useParams } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 
-const stylClasses = makeStyles({
+
+//schema for validadtion
+const schema = yup.object().shape({
+  fullname: yup.string().required(),
+  designation: yup.string().required(),
+  department: yup.string().required(),
+  email: yup.string().email().required(),
+  phone: yup.string().min(10).max(10).required()
+});
+
+const classes = makeStyles({
   head: {
     marginTop: "100px",
     fontFamily: "Red Hat Display, sans-serif",
@@ -19,22 +32,35 @@ const stylClasses = makeStyles({
     backgroundColor: "#cdeea7",
     fontSize: "16px",
     color: "#6a6264"
+  },
+  err: {
+    color: "red",
+    marginTop: "4px",
+    marginBottom: "0px"
   }
 });
 
 //this component to edit perticular user's data
-export default function EditUser({match}){
+export default function EditUser(){
+
+  
 
   const nextPage = useHistory(); 
-  const stylClass = stylClasses();
+  const clss = classes();
   const { id } = useParams();
   
   const [ stuObj, setStuObj ] = useState({
-    name: "",
+    fullname: "",
     designation: "",
     department: "",
     email: "",
-    Phone: ""
+    phone: ""
+  });
+
+  
+
+  const { register, formState: { errors }, handleSubmit } = useForm({
+    resolver: yupResolver(schema)
   });
 
   useEffect(() => {
@@ -69,36 +95,41 @@ export default function EditUser({match}){
   }
 
   return(<>
-             <h1 className={stylClass.head}>Edit Employee Details</h1>
+             <h1 className={clss.head}>Edit Employee Details</h1>
              
-             <FormGroup  className={stylClass.formG}>
+             <FormGroup  className={clss.formG}>
                <FormControl>
                  <InputLabel>Name</InputLabel>
                  <Input
-                      
+                      autoFocus={true}
+                      {...register("fullname")}
                       onChange={getValue} 
-                      name="name"
-                      value={stuObj.name}
+                      
+                      value={stuObj.fullname}
                  />
+                 <p className={clss.err}>{errors.fullname?.message}</p>
+
                </FormControl>
                <FormControl>
                  <InputLabel>Designation</InputLabel>
                  <Input
-                      
+                      {...register("designation")}
                       onChange={getValue} 
-                      name="designation"
+                      
                       value={stuObj.designation}
                  />
+                 <p className={clss.err}>{errors.designation?.message}</p>
                </FormControl>
+
                <FormControl>
                  <InputLabel>Department</InputLabel>
                  <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         
-                        
+                        {...register("department")}
                         onChange={getValue}
-                        name="department"
+                        
                         value={stuObj.department}
                          >
                            <MenuItem value="Accounts and Finance">Accounts and Finance</MenuItem>
@@ -109,25 +140,33 @@ export default function EditUser({match}){
                            <MenuItem value="Product development">Product development</MenuItem>
                            <MenuItem value="Admin department">Admin department</MenuItem>
                   </Select>
+                  <p className={clss.err}>{errors.department?.message}</p>
                </FormControl>
+
                <FormControl>
                  <InputLabel>Email</InputLabel>
                  <Input
-                      
-                      onChange={getValue} 
-                      name="email"
+                      {...register("email")}
+                      onChange={getValue}
+
                       value={stuObj.email}
                  />
+                  <p className={clss.err}>{errors.email?.message}</p>
                </FormControl>
+
                <FormControl>
                  <InputLabel>Phone</InputLabel>
                  <Input
-                      onChange={getValue} 
-                      name="Phone"
-                      value={stuObj.Phone}
+                      {...register("phone")}
+                      onChange={getValue}
+
+                      value={stuObj.phone}
                  />
+                 <p className={clss.err}>{errors.phone?.message}</p>
                </FormControl>
-               <Button type="submit" onClick={submitData} className={stylClass.btn}>Edit</Button>
+               <Button onClick={handleSubmit(submitData)} className={clss.btn}>Edit</Button>
              </FormGroup>
+             
+             
           </>)
 }

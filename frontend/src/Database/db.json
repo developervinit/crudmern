@@ -1,44 +1,108 @@
 {
   "users": [
-    {
-      "name": "Elon Musk",
-      "designation": "Senior Developer",
-      "department": "R & D",
-      "email": "elonmusk@space.com",
-      "Phone": "774374739473",
-      "id": 1
+    { 
+      "fullname": "Rajesh Malhotra",
+      "designation": "Senior Developet",
+      "department": "Learning and development",
+      "email": "elonmusk@space.coo",
+      "phone": "7509648995",
+      "id": 1      
     },
     {
-      "name": "Bill Gates",
+      "fullname": "Bill Gates",
       "designation": "Senior Executive",
       "department": "Product development",
       "email": "billgate@microsoft.com",
-      "Phone": "874838937498",
+      "phone": "874838937498",
       "id": 2
     },
     {
-      "name": "Lerry Page",
+      "fullname": "Lerry Page",
       "designation": "Senior Developer",
       "department": "Product development",
       "email": "lerry@gmail.com",
-      "Phone": "84373289749",
+      "phone": "84373289749",
       "id": 3
     },
     {
-      "name": "Mark Jukerberg",
+      "fullname": "Mark Jukerberg",
       "designation": "Developer and Product Manager ",
       "department": "IT services",
       "email": "mark@facebook.com",
-      "Phone": "874343773474",
+      "phone": "874343773474",
       "id": 4
     },
     {
-      "name": "Jeff Bezos",
+      "fullname": "Jeff Bezos",
       "designation": "CEO",
       "department": "Admin department",
       "email": "jeff@gmail.com",
-      "Phone": "74874384389",
+      "phone": "74874384389",
       "id": 5
+    },
+    {
+      "fullname": "vinit sharma",
+      "designation": "developer",
+      "department": "Accounts and Finance",
+      "email": "sjdjdjdjdjd",
+      "phone": "12334567789999",
+      "id": 6
+    },
+    {
+      "fullname": "Vinit Sharma",
+      "designation": "developer",
+      "department": "Accounts and Finance",
+      "email": "sharma@gmail.com",
+      "phone": "7509648995",
+      "id": 7
+    },
+    {
+      "fullname": "Tanya Rajhans",
+      "designation": "Developer",
+      "department": "Learning and development",
+      "email": "sharma@gmail.cpm",
+      "phone": "7509648995",
+      "id": 8
+    },
+    {
+      "fullname": "Vinit Sharma",
+      "designation": "Developer",
+      "department": "HR",
+      "email": "vinitsharma71@gmail.com",
+      "phone": "7509648995",
+      "id": 9
+    },
+    {
+      "fullname": "Vinit Shama",
+      "designation": "Developer",
+      "department": "Learning and development",
+      "email": "sharma.vinit91@gmail.com",
+      "phone": "7509648995",
+      "id": 10
+    },
+    {
+      "fullname": "Vinit Sharma",
+      "designation": "Developer New",
+      "department": "Accounts and Finance",
+      "email": "sharma@gmail.com",
+      "phone": "7509648995",
+      "id": 11
+    },
+    {
+      "fullname": "new user",
+      "designation": "developer",
+      "department": "HR",
+      "email": "sha.vinit@gmail.com",
+      "phone": "7509648995",
+      "id": 12
+    },
+    {
+      "fullname": "vinit sharma",
+      "designation": "developer",
+      "department": "HR",
+      "email": "du@gmail.com",
+      "phone": "7509648995",
+      "id": 13
     }
   ]
 }

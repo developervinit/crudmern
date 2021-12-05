@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getUsers, deleteOneUser } from "../service/api.js";
+import { getUsers, deleteOneUser, getEditUser } from "../service/api.js";
 import { Link } from 'react-router-dom';
-import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
+import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button, Select, MenuItem } from '@material-ui/core';
+import PopUp from "./PopUp.jsx";
 
-const classStyl = makeStyles({
+const classes = makeStyles({
     forH1:{
         marginTop: "100px",
         fontFamily: "Red Hat Display, sans-serif",
@@ -34,6 +35,15 @@ const classStyl = makeStyles({
         color: "dimgrey",
         margin: "22px",
         fontFamily: "Red Hat Display, sans-serif",
+    },
+    slctStyle: {
+        width: "300px"
+    },
+    active: {
+        display: "block"
+    },
+    deactive: {
+        display: "none"
     }
 
 })
@@ -42,7 +52,9 @@ const classStyl = makeStyles({
 export default function AllUser(){
 
     const [ users, setUsers ] = useState([]);
-    const classes = classStyl();
+    const [ pop, setPop ] = useState(false);
+    //const [ btnPopUp, setBtnPop ] = useState(false);
+    const clss = classes();
 
     //fetching all-employees data from the database
     const getAllUsers = async () => {
@@ -66,13 +78,39 @@ export default function AllUser(){
         }       
         
     }
+
+    
+    
+    async function popUp(id){
+        const userData = await getEditUser(id);
+        console.log(userData);
+        //setBtnPop(true)
+        setPop(userData.data);
+    }
+
     
 
+
      return(<>
-              <h1 className={classes.forH1}></h1>
-                 <Table  className={classes.table} aria-label="simple table">
+              <h1 className={clss.forH1}>List of All employees</h1>
+              <form>
+              <Select
+                        className={clss.slctStyle}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                         >
+                           <MenuItem value="Accounts and Finance">Accounts and Finance</MenuItem>
+                           <MenuItem value="HR">HR</MenuItem>
+                           <MenuItem value="R & D">R & D</MenuItem>
+                           <MenuItem value="Learning and development">Learning and development</MenuItem>
+                           <MenuItem value="IT services">IT services</MenuItem>
+                           <MenuItem value="Product development">Product development</MenuItem>
+                           <MenuItem value="Admin department">Admin department</MenuItem>
+                  </Select>
+              </form>
+                 <Table  className={clss.table} aria-label="simple table">
                     <TableHead>
-                      <TableRow className={classes.headRW}>
+                      <TableRow className={clss.headRW}>
                         <TableCell>id</TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell>Designation</TableCell>
@@ -84,25 +122,25 @@ export default function AllUser(){
                     </TableHead>
                     <TableBody>
                       {users.length !== 0 ? users.map((user) => (
-                        <TableRow id={user.id} className={classes.tbleBdRw} key={user.id}>
+                        <TableRow id={user.id} className={clss.tbleBdRw} key={user.id}>
                           <TableCell component="th" scope="row">
                           {user.id}
                           </TableCell>
-                          <TableCell>{user.name}</TableCell>
+                          <TableCell>{user.fullname}</TableCell>
                           <TableCell>{user.designation}</TableCell>
                           <TableCell>{user.department}</TableCell>
                           <TableCell>{user.email}</TableCell>
-                          <TableCell>{user.Phone}</TableCell>
+                          <TableCell>{user.phone}</TableCell>
                           <TableCell>
                                <Button component={Link} to={`/edit/${user.id}`}>Edit</Button>
                                <Button onClick={() => deleteUser(user.id)} >Delete</Button>
+                               <Button onClick={() => popUp(user.id)} >View</Button>
                           </TableCell>
                        </TableRow>
-                       )) : <h2 className={classes.messg}>There is NO Employee List to Show</h2>
+                       )) : <h2 className={clss.messg}>There is NO Employee List to Show</h2>
                       }
                    </TableBody>
                   </Table>
-              
-
-              </>)
+                  <PopUp trigger={pop} setTrigger={setPop} userObj={pop} />
+                </>)
 }
