@@ -18,7 +18,7 @@ const schema = yup.object().shape({
 //material-ui opbjects for css-classes
 const classes = makeStyles({
   head: {
-    marginTop: "100px",
+    marginTop: "140px",
     fontFamily: "Red Hat Display, sans-serif",
     color: "#6a6264",
     width: "484px"
@@ -27,17 +27,22 @@ const classes = makeStyles({
 
   },
   btn: {
-    marginTop: "32px",
-    backgroundColor: "#cdeea7",
+    backgroundColor: "#a8d96f",
+    color: "#4e850d",
+    padding: "8px 24px",
     fontSize: "16px",
-    color: "#837b7d",
     fontFamily: "Red Hat Display, sans-serif",
-    boxShadow: "0px 0px 6px 0px #c7c7c7"
+    boxShadow: "0px 0px 6px 0px #c7c7c7",
+    boxShadow: "1px 1px 1px 1px #81b841",
+    fontWeight: "600",
+    marginBottom: "14px"
+  },
+  inputF: {
+
   },
   err: {
     color: "red",
-    marginTop: "4px",
-    marginBottom: "0px"
+    marginTop: "4px"
   }
 })
 
@@ -88,7 +93,7 @@ export default function AddUser(){
   }
 
   //to reset the form
-  function refresh(){
+  function formReset(){
     window.location.reload();
   }
 
@@ -101,15 +106,19 @@ export default function AddUser(){
 
              {/**<Button onClick={goBackToPage}>GoBack</Button> **/}
 
-             <FormGroup  className={clss.formG}>
+             <FormGroup   className={clss.formG}>
                <FormControl>
                  <InputLabel>Name*</InputLabel>
                  <Input
                       autoFocus={true}
                       {...register("fullname")}
+
+                      className={clss.inputF}
                       onChange={getValue} 
                       error={false}
                       value={stuObj.fullname}
+                      autoComplete="hshs"
+
                  />
                  <p className={clss.err}>{errors.fullname?.message}</p>
 
@@ -119,8 +128,11 @@ export default function AddUser(){
                  <InputLabel>Designation*</InputLabel>
                  <Input
                       {...register("designation")}
+
+                      className={clss.inputF}
                       onChange={getValue} 
                       value={stuObj.designation}
+                      autoComplete="hshs"
                  />
                  <p className={clss.err}>{errors.designation?.message}</p>
                </FormControl>
@@ -131,6 +143,8 @@ export default function AddUser(){
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         {...register("department")}
+
+                        className={clss.inputF}
                         onChange={getValue}
                         value={stuObj.department}
                          >
@@ -149,8 +163,11 @@ export default function AddUser(){
                  <InputLabel>Email*</InputLabel>
                  <Input
                       {...register("email")}
+
+                      className={clss.inputF}
                       onChange={getValue} 
                       value={stuObj.email}
+                      autoComplete="hshs"
                  />
                  <p className={clss.err}>{errors.email?.message}</p>
                </FormControl>
@@ -159,6 +176,9 @@ export default function AddUser(){
                  <InputLabel>Phone*</InputLabel>
                  <Input
                       {...register("phone")}
+
+                      className={clss.inputF}
+                      type="number"
                       onChange={getValue} 
                       value={stuObj.phone}
                  />
@@ -166,7 +186,8 @@ export default function AddUser(){
                </FormControl>
 
                <Button onClick={handleSubmit(formSubmit)}  className={clss.btn}>Add User</Button>
+               <Button onClick={formReset} className={clss.btn}>Reset</Button>
             </FormGroup>
-            <Button onClick={refresh} className={clss.btn}>Reset</Button>
+            
           </>)
 }

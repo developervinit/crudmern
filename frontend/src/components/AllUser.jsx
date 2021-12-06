@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUsers, deleteOneUser, getEditUser } from "../service/api.js";
 import { Link } from 'react-router-dom';
-import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button, Select, MenuItem } from '@material-ui/core';
+import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
 import PopUp from "./PopUp.jsx";
 
 const classes = makeStyles({
@@ -10,14 +10,41 @@ const classes = makeStyles({
         fontFamily: "Red Hat Display, sans-serif",
         color: "#6a6264"
     },
+    formSelct:{
+        display: "inline-block",
+        verticalAlign: "baseline"
+    },
+    dashBoard: {
+        backgroundColor: "#f7e4e9",
+        padding: "18px",
+        borderRadius: "8px",
+    },
+    strgthWrpr: {
+        display: "inline-block",
+        verticalAlign: "baseline",
+        fontFamily: "Red Hat Display, sans-serif",
+
+        fontSize: "22px",
+        marginLeft: "40px",
+        backgroundColor: "#f6d4dd",
+        padding: "4px 12px",
+        borderRadius: "13px",
+        color: "#a45f71",
+        fontWeight: "600"
+    },
+    totleLabel: {
+        
+    },
+    totleVlue: {
+
+    },
     table: {
-        minWidth: 650,
         boxShadow: "0px 0px 6px 1px #dddddd"
     },
     headRW: {
         '& > *': {
             textAlign: 'left',
-            fontSize: "16px",
+            fontSize: "20px",
             backgroundColor: "#f7e4e9",
             color: "#7f7175",
             fontWeight: "600"
@@ -26,7 +53,7 @@ const classes = makeStyles({
     tbleBdRw: {
         '& > *': {
             textAlign: 'left',
-            fontSize: "14px",
+            fontSize: "18px",
             color: "#7c7376"
             
         }
@@ -53,18 +80,25 @@ export default function AllUser(){
 
     const [ users, setUsers ] = useState([]);
     const [ pop, setPop ] = useState(false);
-    //const [ btnPopUp, setBtnPop ] = useState(false);
+    const [ slectValue, setSlectValue] = useState([]);
+   
     const clss = classes();
 
     //fetching all-employees data from the database
-    const getAllUsers = async () => {
-        const response = await getUsers();
+    const getAllUsers = async (slectValue) => {
+        const response = await getUsers(slectValue);
         setUsers(response.data);
     }
     
     useEffect(() => {
-        getAllUsers();
-    }, []);
+        getAllUsers(slectValue);
+    }, [slectValue]);
+
+
+    function getSlectVlue(e){
+        let value = e.target.value;
+        setSlectValue(value);
+    }
 
     //to delete user with condition
     async function deleteUser(id){
@@ -90,15 +124,19 @@ export default function AllUser(){
 
     
 
-
      return(<>
-              <h1 className={clss.forH1}>List of All employees</h1>
-              <form>
-              <Select
+              <h1 className={clss.forH1}>Employees List</h1>
+              <div className={clss.dashBoard}>
+                 <FormControl  className={clss.formSelct}>
+                    <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                    <Select
                         className={clss.slctStyle}
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
+                        onChange={getSlectVlue}
+                        value={slectValue}
                          >
+                           <MenuItem value="">All</MenuItem>
                            <MenuItem value="Accounts and Finance">Accounts and Finance</MenuItem>
                            <MenuItem value="HR">HR</MenuItem>
                            <MenuItem value="R & D">R & D</MenuItem>
@@ -106,8 +144,13 @@ export default function AllUser(){
                            <MenuItem value="IT services">IT services</MenuItem>
                            <MenuItem value="Product development">Product development</MenuItem>
                            <MenuItem value="Admin department">Admin department</MenuItem>
-                  </Select>
-              </form>
+                    </Select>
+                  </FormControl >
+                  <div className={clss.strgthWrpr}>
+                        <span className={clss.totleLabel}>Total</span> : <span className={clss.totleVlue}>{users.length}</span>
+                    </div>
+                  </div>
+              <div>
                  <Table  className={clss.table} aria-label="simple table">
                     <TableHead>
                       <TableRow className={clss.headRW}>
@@ -141,6 +184,7 @@ export default function AllUser(){
                       }
                    </TableBody>
                   </Table>
+                </div> 
                   <PopUp trigger={pop} setTrigger={setPop} userObj={pop} />
-                </>)
+               </>)
 }

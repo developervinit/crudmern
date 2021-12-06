@@ -8,15 +8,17 @@ const classes = makeStyles({
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      marginTop: "140px"
+      marginTop: "260px"
   },
    btn: {
-      backgroundColor: "#cdeea7",
-      color: "#837b7d",
+      backgroundColor: "#a8d96f",
+      color: "#4e850d",
       padding: "8px 24px",
       fontSize: "16px",
       fontFamily: "Red Hat Display, sans-serif",
-      boxShadow: "0px 0px 6px 0px #c7c7c7"
+      boxShadow: "0px 0px 6px 0px #c7c7c7",
+      boxShadow: "1px 1px 1px 1px #81b841",
+      fontWeight: "600"
    },
    hello: {
       fontFamily: "'Red Hat Display', sans-serif",

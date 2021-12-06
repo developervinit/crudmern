@@ -1,12 +1,12 @@
 {
   "users": [
-    { 
+    {
       "fullname": "Rajesh Malhotra",
       "designation": "Senior Developet",
       "department": "Learning and development",
       "email": "elonmusk@space.coo",
       "phone": "7509648995",
-      "id": 1      
+      "id": 1
     },
     {
       "fullname": "Bill Gates",
@@ -103,6 +103,70 @@
       "email": "du@gmail.com",
       "phone": "7509648995",
       "id": 13
+    },
+    {
+      "fullname": "vinit sharma",
+      "designation": "developer",
+      "department": "HR",
+      "email": "vinitsharma72@gmail.com",
+      "phone": "7509648995",
+      "id": 14
+    },
+    {
+      "fullname": "new employee",
+      "designation": "developer",
+      "department": "Accounts and Finance",
+      "email": "sharto@gmail.com",
+      "phone": "1234556",
+      "id": 15
+    },
+    {
+      "fullname": "cndncjdn",
+      "designation": "jncndcn",
+      "department": "Accounts and Finance",
+      "email": "shar@gmail.com",
+      "phone": "1234556",
+      "id": 16
+    },
+    {
+      "fullname": "dvdvdvb",
+      "designation": "dkd dcdncj",
+      "department": "Accounts and Finance",
+      "email": "jdjsjd@gmail.com",
+      "phone": "1234",
+      "id": 17
+    },
+    {
+      "fullname": "fvkjnfvnfvj",
+      "designation": "kdjv  v v",
+      "department": "Accounts and Finance",
+      "email": "djcnndn@gmail.com",
+      "phone": "10",
+      "id": 18
+    },
+    {
+      "fullname": "jnvdv",
+      "designation": "jdbdbc",
+      "department": "Accounts and Finance",
+      "email": "dsbdjbsbsjhsjs@gmail.com",
+      "phone": "2",
+      "id": 19
+    },
+    {
+      "fullname": "diddbb",
+      "designation": "cjndcndcdib",
+      "department": "Accounts and Finance",
+      "email": "nddb@gmail.com",
+      "phone": "122334",
+      "id": 20
+    },
+    {
+      "fullname": "vjnvbfvb",
+      "designation": "vjndvfbv",
+      "department": "Accounts and Finance",
+      "email": "sjnnd@gmail.com",
+      "phone": "75096489977",
+      "id": 21
     }
   ]
 }

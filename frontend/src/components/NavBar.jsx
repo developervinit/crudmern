@@ -1,34 +1,44 @@
 import { AppBar, Toolbar, makeStyles } from '@material-ui/core';
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-const useStyle = makeStyles({
+const classes = makeStyles({
   header: {
     background: "#cdeea7",
-    color: "white"
+    color: "white",
+    display: "flex",
+    alignItems: "center"
   },
 
   menus: {
     textDecoration: "none",
-    color: "#313131",
+    color: "#4e850d",
     marginRight: "12px",
     fontFamily: "Red Hat Display, sans-serif",
     fontWeight: "600",
-    fontSize: "16px"
+    fontSize: "18px",
+    textDecoration: "none",
+    background: "#a8d96f",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    boxShadow: "1px 1px 1px 1px #81b841"
   }
 });
 
 
 export default function NavBar(){
 
-  const classes = useStyle();
+  const location = useLocation();
+  const clss = classes();
 
+  //getting current location
+  const path = location.pathname;
 
   return(<>
-            <AppBar className={classes.header}>
+            <AppBar className={clss.header}>
               <Toolbar>
-                <NavLink className={classes.menus} to="/" exact>Home</NavLink>
-                <NavLink className={classes.menus} to="/newuser" exact>New User</NavLink>
-                <NavLink className={classes.menus} to="/users" exact>Users</NavLink>
+                <NavLink className={clss.menus} to="/" exact>HOME</NavLink>
+                { path==="/newuser" ? "" : <NavLink className={clss.menus} to="/newuser" exact>CREATE</NavLink>}
+                <NavLink className={clss.menus} to="/users" exact>EMPLOYEES</NavLink>
               </Toolbar>
             </AppBar>
 

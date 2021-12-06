@@ -4,13 +4,23 @@ import axios from 'axios';
 //Note - if it is fething data from 'Database/db.json' file then did not use that url here like: 'http://127.0.0.1:3003/Database/users' because we installed 'json-server' and in 'npm-script' we gave the url (127.0.0.1:3003) to run json-server on it then when we start 'json-server' using script 'npm run json-server' then 'jeson-server' automatically fetch the data from the server.
 const url = "http://127.0.0.1:3003/users";
 
+const urlf = "http://127.0.0.1:3003/users?department=HR";
+
 
 //it is to get value from the database currently which is from 'Database/db.json'. 
-export async function getUsers() {
+export async function getUsers(slectValue) {
 
     try{
-        const rspns = await axios.get(url);
+        let rspns
+        if(slectValue.length !== 0){
+             rspns = await axios.get(`${url}?department=${slectValue}`);
+             console.log(rspns);
+        } else {
+             rspns = await axios.get(url);
+        }
+
         return rspns;
+         
     }catch(err){
         console.log(err);
     }
