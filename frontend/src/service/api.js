@@ -2,7 +2,9 @@ import axios from 'axios';
 
 //this url is not of any component, this is of database url from database/db.json. and 'users' is the object in it holding all the values.
 //Note - if it is fething data from 'Database/db.json' file then did not use that url here like: 'http://127.0.0.1:3003/Database/users' because we installed 'json-server' and in 'npm-script' we gave the url (127.0.0.1:3003) to run json-server on it then when we start 'json-server' using script 'npm run json-server' then 'jeson-server' automatically fetch the data from the server.
-const url = "http://127.0.0.1:3003/users";
+//const url = "http://127.0.0.1:3003/users"; //this url for json-server
+
+const url = "http://127.0.0.1:8000";
 
 const urlf = "http://127.0.0.1:3003/users?department=HR";
 
@@ -31,7 +33,7 @@ export async function getUsers(slectValue) {
 export async function addNewUser(user){
 
     try{
-        await axios.post(url, user);
+        await axios.post(`${url}/newemp`, user);
      }catch(err){
         console.log(err);
      }
