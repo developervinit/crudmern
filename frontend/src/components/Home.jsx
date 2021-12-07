@@ -22,7 +22,7 @@ const classes = makeStyles({
    },
    hello: {
       fontFamily: "'Red Hat Display', sans-serif",
-      color: "#313131",
+      color: "#91555e",
       fontSize: "54px",
       textShadow: "0px 0px 4px #b2b1b1"
   }

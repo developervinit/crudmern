@@ -21,22 +21,26 @@ const classes = makeStyles({
   head: {
     marginTop: "100px",
     fontFamily: "Red Hat Display, sans-serif",
-    color: "#6a6264",
-    width: "484px"
+    color: "#8b646e",
+    width: "550px"
   },
   formG: {
 
   },
   btn: {
     marginTop: "32px",
-    backgroundColor: "#cdeea7",
+    backgroundColor: "#a8d96f",
+    color: "#4e850d",
+    padding: "8px 24px",
     fontSize: "16px",
-    color: "#6a6264"
+    fontFamily: "Red Hat Display, sans-serif",
+    boxShadow: "0px 0px 6px 0px #c7c7c7",
+    boxShadow: "1px 1px 1px 1px #81b841",
+    fontWeight: "600",
+    marginBottom: "14px"
   },
   err: {
-    color: "red",
-    marginTop: "4px",
-    marginBottom: "0px"
+    color: "red"
   }
 });
 

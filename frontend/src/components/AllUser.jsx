@@ -2,22 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { getUsers, deleteOneUser, getEditUser } from "../service/api.js";
 import { Link } from 'react-router-dom';
 import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
+
 import PopUp from "./PopUp.jsx";
 
 const classes = makeStyles({
     forH1:{
         marginTop: "100px",
         fontFamily: "Red Hat Display, sans-serif",
-        color: "#6a6264"
+        color: "#8b646e"
     },
     formSelct:{
         display: "inline-block",
         verticalAlign: "baseline"
     },
+    inptLbl: {
+        fontSize: "19px",
+        color: "#8b646e"
+    },
+    slctStyle: {
+        width: "300px"
+    },
     dashBoard: {
         backgroundColor: "#f7e4e9",
-        padding: "18px",
+        padding: "14px 14px",
         borderRadius: "8px",
+        boxShadow: "0px 0px 9px 0px #cecece;"
     },
     strgthWrpr: {
         display: "inline-block",
@@ -39,14 +48,15 @@ const classes = makeStyles({
 
     },
     table: {
-        boxShadow: "0px 0px 6px 1px #dddddd"
+        boxShadow: "0px 0px 9px 0px #cecece;",
+        marginTop: "14px"
     },
     headRW: {
         '& > *': {
             textAlign: 'left',
             fontSize: "20px",
             backgroundColor: "#f7e4e9",
-            color: "#7f7175",
+            color: "#9d7881",
             fontWeight: "600"
         }
     },
@@ -54,8 +64,7 @@ const classes = makeStyles({
         '& > *': {
             textAlign: 'left',
             fontSize: "18px",
-            color: "#7c7376"
-            
+            color: "#ab8a93"
         }
     },
     messg: {
@@ -63,16 +72,26 @@ const classes = makeStyles({
         margin: "22px",
         fontFamily: "Red Hat Display, sans-serif",
     },
-    slctStyle: {
-        width: "300px"
+    edtBtn: {
+        color: "#3171a3",
+        boxShadow: "1px 1px 1px 1px #3283c6",
+        backgroundColor: "#5baaea",
+        fontWeight: "600",
+        marginRight: "8px"
     },
-    active: {
-        display: "block"
+    dltBtn: {
+        backgroundColor: "#fc7272",
+        color: "#c03737",
+        boxShadow: "1px 1px 1px 1px #de3e3e",
+        fontWeight: "600"
     },
-    deactive: {
-        display: "none"
+    vewBtn: {
+        backgroundColor: "#a8d96f",
+        color: "#538a12",
+        boxShadow: "1px 1px 1px 1px #83ba44",
+        fontWeight: "600",
+        marginRight: "8px"
     }
-
 })
 
 //this component to show all-user data
@@ -128,7 +147,7 @@ export default function AllUser(){
               <h1 className={clss.forH1}>Employees List</h1>
               <div className={clss.dashBoard}>
                  <FormControl  className={clss.formSelct}>
-                    <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                    <InputLabel className={clss.inptLbl} id="demo-simple-select-label">Select Department</InputLabel>
                     <Select
                         className={clss.slctStyle}
                         labelId="demo-simple-select-label"
@@ -175,9 +194,10 @@ export default function AllUser(){
                           <TableCell>{user.email}</TableCell>
                           <TableCell>{user.phone}</TableCell>
                           <TableCell>
-                               <Button component={Link} to={`/edit/${user.id}`}>Edit</Button>
-                               <Button onClick={() => deleteUser(user.id)} >Delete</Button>
-                               <Button onClick={() => popUp(user.id)} >View</Button>
+                               <Button className={clss.vewBtn} onClick={() => popUp(user.id)} >View</Button>
+                               <Button className={clss.edtBtn} component={Link} to={`/edit/${user.id}`}>Edit</Button>
+                               <Button className={clss.dltBtn} onClick={() => deleteUser(user.id)} >Delete</Button>
+                               
                           </TableCell>
                        </TableRow>
                        )) : <h2 className={clss.messg}>There is NO Employee List to Show</h2>
