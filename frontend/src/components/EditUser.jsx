@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getEditUser, updateUser } from "../service/api.js"
+import { getEditUser, updateEmp } from "../service/api.js"
 import { FormGroup, FormControl, Input, InputLabel, Button, makeStyles, Select, MenuItem } from "@material-ui/core";
 import { useHistory, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
@@ -49,9 +49,9 @@ export default function EditUser(){
 
   
 
-  const nextPage = useHistory(); 
+  const nextPage = useHistory(); //this hook to redirect on differnt-page
   const clss = classes();
-  const { id } = useParams();
+  const { id } = useParams(); //getting current user's id from url
   
   const [ stuObj, setStuObj ] = useState({
     fullname: "",
@@ -76,6 +76,7 @@ export default function EditUser(){
     const userObj = await getEditUser(id);
     setStuObj(userObj.data);
 }
+ 
 
   //to get value from input-field form
   const getValue = (e) => {
@@ -93,7 +94,7 @@ export default function EditUser(){
 
   //to submit user's data into database
   async function submitData(){
-      await updateUser(id, stuObj); 
+      await updateEmp(id, stuObj); //updating the employee data
       alert("Form is Edited Succesfully");
       nextPage.push("/users") //redirecting to users-page
   }

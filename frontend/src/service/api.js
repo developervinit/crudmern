@@ -1,22 +1,17 @@
 import axios from 'axios';
 
-//this url is not of any component, this is of database url from database/db.json. and 'users' is the object in it holding all the values.
-//Note - if it is fething data from 'Database/db.json' file then did not use that url here like: 'http://127.0.0.1:3003/Database/users' because we installed 'json-server' and in 'npm-script' we gave the url (127.0.0.1:3003) to run json-server on it then when we start 'json-server' using script 'npm run json-server' then 'jeson-server' automatically fetch the data from the server.
-//const url = "http://127.0.0.1:3003/users"; //this url for json-server
 
-const url = "http://127.0.0.1:8000";
 
-const urlf = "http://127.0.0.1:3003/users?department=HR";
+const url = "http://127.0.0.1:8000";  //nodejs server url.
 
 
 //it is to get value from the database currently which is from 'Database/db.json'. 
 export async function getUsers(slectValue) {
-
+     
     try{
         let rspns
         if(slectValue.length !== 0){
-             rspns = await axios.get(`${url}?department=${slectValue}`);
-             console.log(rspns);
+             rspns = await axios.get(`${url}/${slectValue}`);
         } else {
              rspns = await axios.get(url);
         }
@@ -29,21 +24,28 @@ export async function getUsers(slectValue) {
     
 }
 
-//it is to put dadta into the database currently which is 'Database/db.json'.
+
+let headers =  {
+    'Content-Type': 'application/json'
+}
+
+//this function sending data (which is coming from the input-form) to this route "http://127.0.0.1:8000/newemp". and this route is in nodejs file.  
 export async function addNewUser(user){
 
     try{
-        await axios.post(`${url}/newemp`, user);
+         await axios.post(`${url}/newemp`, user, headers)
+        //console.log(issubmit);
      }catch(err){
-        console.log(err);
+        //err.response.data;
+        console.log(err.res);
      }
 
 }
 
-//this is to update user. here we are using 'put' method to update the user
-export async function updateUser(id, user){
+//this is to update user. here we are using 'put' method to update the user. this function is exporting to "EditUser.jsx" file.
+export async function updateEmp(id, user){
     try{
-        return await axios.put(`${url}/${id}`, user);
+        return await axios.put(`${url}/edit/${id}`, user);
     }catch(err){
         console.log(err);
     }
@@ -52,9 +54,8 @@ export async function updateUser(id, user){
 
 //getting user's data according 'id'
 export async function getEditUser(id){
-
     try{
-        const response = await axios.get(`${url}/${id}`);
+        const response = await axios.get(`${url}/edit/${id}`);
         return response;
     } catch(err){
         console.log(err);
@@ -64,5 +65,6 @@ export async function getEditUser(id){
 
 
 export async function deleteOneUser(id){
+    console.log(id);
     return await axios.delete(`${url}/${id}`);
 }

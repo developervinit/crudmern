@@ -108,6 +108,8 @@ export default function AllUser(){
         const response = await getUsers(slectValue);
         setUsers(response.data);
     }
+
+    
     
     useEffect(() => {
         getAllUsers(slectValue);
@@ -136,12 +138,9 @@ export default function AllUser(){
     
     async function popUp(id){
         const userData = await getEditUser(id);
-        console.log(userData);
         //setBtnPop(true)
         setPop(userData.data);
     }
-
-    
 
      return(<>
               <h1 className={clss.forH1}>Employees List</h1>
@@ -184,9 +183,9 @@ export default function AllUser(){
                     </TableHead>
                     <TableBody>
                       {users.length !== 0 ? users.map((user) => (
-                        <TableRow id={user.id} className={clss.tbleBdRw} key={user.id}>
+                        <TableRow id={user.id} className={clss.tbleBdRw} key={user._id}>
                           <TableCell component="th" scope="row">
-                          {user.id}
+                          {user._id}
                           </TableCell>
                           <TableCell>{user.fullname}</TableCell>
                           <TableCell>{user.designation}</TableCell>
@@ -194,9 +193,9 @@ export default function AllUser(){
                           <TableCell>{user.email}</TableCell>
                           <TableCell>{user.phone}</TableCell>
                           <TableCell>
-                               <Button className={clss.vewBtn} onClick={() => popUp(user.id)} >View</Button>
-                               <Button className={clss.edtBtn} component={Link} to={`/edit/${user.id}`}>Edit</Button>
-                               <Button className={clss.dltBtn} onClick={() => deleteUser(user.id)} >Delete</Button>
+                               <Button className={clss.vewBtn} onClick={() => popUp(user._id)} >View</Button>
+                               <Button className={clss.edtBtn} component={Link} to={`/edit/${user._id}`}>Edit</Button>
+                               <Button className={clss.dltBtn} onClick={() => deleteUser(user._id)} >Delete</Button>
                                
                           </TableCell>
                        </TableRow>

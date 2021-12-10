@@ -87,9 +87,15 @@ export default function AddUser(){
 
   //put data into data-base on invoking this function
   async function formSubmit(){
-       await addNewUser(stuObj);
+    try{
+      await addNewUser(stuObj);
+      
        alert("Form is Submited");
        nextPage.push("/users")
+    }catch(err){
+      console.log(err);
+    }
+       
   }
 
   //to reset the form
