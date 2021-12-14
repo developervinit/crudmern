@@ -113,10 +113,6 @@ export default function AddUser(){
     window.location.reload();
   }
 
-
-  //Note - field 'id' is automatically handeled by 'json-server', we did not create it here.
-
-
   return(<>
              <h1 className={clss.head}>Add Employee</h1>
              <ErrPop trigger={mongoerr} setTrigger={setmongoErr} errText={mongoerr} />

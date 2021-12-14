@@ -29,12 +29,9 @@ exports.getEmpByDepartment = async (req, res) => {
 
 }
 
-
-
-//storing data into mongodb server
+//to create newEmployee 
 exports.addEmp = (req, res, next) => {
 
-    //data-object is coming from "react-form" in 'req' object here, and we are taking it out using "req.body" and saving it into "empData" variable.
     const empData = req.body; //extracted employee-data from the body
     const newEmp = new Employee(empData); //put extracted data into the model of schema to get validated
 
@@ -50,46 +47,6 @@ exports.addEmp = (req, res, next) => {
            res.json({ errorMessage: err.message });
         }
 }
-
-
-// //storing data into mongodb server
-// exports.addEmp = (req, res) => {
-
-//     //data-object is coming from "react-form" in 'req' object here, and we are taking it out using "req.body" and saving it into "empData" variable.
-//     const empData = req.body; //extracted employee-data from the body
-//     const newEmp = new Employee(empData); //put extracted data into the model of schema to get validated
-
-//     try{
-//         newEmp.save((err) => {
-//                         if(err){
-                
-//                        if(err.name === "MongoServerError" && err.code === 11000){
-
-//                 return handleDuplicateError(err, res);
-
-//                 // return  res.status(500).send({
-//                 //         success: false,
-//                 //         message: "this phone number already exist in database"
-//                 //        });
-//                 }
-//             }
-//         }); //save() is mongoose's document middleware which is async
-//         res.json(newEmp); //it send back response to frontend, and then frontend know that form is submited
-//     }catch(err){
-//         res.json({ errorMessage: err.message });
-//     }
-
-// }
-
-//temprary function running in addEmp() function
-// function handleDuplicateError(err, res) {
-//     const field = Object.keys(err.keyValue);
-//     const code = 409;
-//     res.status(code).send(`An account with that ${field} already exists.`); 
-// }
-
-
-
 
 
 //this route-handler is to get data by "id" from the mongodb database and send res back to the react app. "id" is coming from react app. this is running for the page where you edit employee's detail. 
@@ -120,11 +77,6 @@ exports.updateEmpData = async (req, res, next) => {
     }
     
 }
-
-//NOTE: in video it teach that to update perticular document use "updateOne()" method which not corrent because "updateOne()" method only update one-user it means if you try second user to update then it will not update.
-//video link - https://www.youtube.com/watch?v=UTA2XWPj97Q
-
-
 
 exports.deleteEmp = async (req, res) => {
     const id = req.params.id;

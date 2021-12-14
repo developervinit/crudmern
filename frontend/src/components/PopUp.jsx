@@ -16,9 +16,9 @@ const classes = makeStyles({
         margin: "auto"
     },
     close: {
-        top: "-24px",
+        top: "-20px",
         color: "#885757",
-        right: "-24px",
+        right: "-20px",
         cursor: "pointer",
         display: "inline-block",
         position: "absolute",

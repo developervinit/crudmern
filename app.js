@@ -4,6 +4,7 @@ const errorControler = require("./controllers/errController.js");
 const app = new express();
 const cors =require("cors");
 
+//enabling cors using package
 app.use(cors());
 
 //body parser for post-method

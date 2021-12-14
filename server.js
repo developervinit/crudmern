@@ -1,13 +1,10 @@
 const app = require("./app.js");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const cors = require("cors");
+
 
 //to connect 'config.env' file
 dotenv.config({ path: './config.env'});
-
-//enabling cors using the cors package
-//app.use(cors());
 
 //db-string for database connection
 const string = process.env.STRING;

@@ -8,7 +8,6 @@ import * as yup from "yup";
 import ErrPop from "./ErrPop.jsx";
 
 
-
 //schema for validadtion
 const schema = yup.object().shape({
   fullname: yup.string().required(),
@@ -48,8 +47,6 @@ const classes = makeStyles({
 //this component to edit perticular user's data
 export default function EditUser(){
 
-  
-
   const nextPage = useHistory(); //this hook to redirect on differnt-page
   const clss = classes();
   const { id } = useParams(); //getting current user's id from url
@@ -63,8 +60,6 @@ export default function EditUser(){
     email: "",
     phone: ""
   });
-
-  
 
   const { register, formState: { errors }, handleSubmit } = useForm({
     resolver: yupResolver(schema)

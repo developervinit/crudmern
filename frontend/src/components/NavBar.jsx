@@ -37,25 +37,6 @@ export default function NavBar(){
   //getting current location
   const path = location.pathname;
 
-  // if(path === "/"){
-  //   var activeClass = clss.active
-  // }
-
-  
-
-  // switch (path) {
-  //    case "/" : 
-  //       activeClass = clss.active;
-  //       break;
-  //    case "/newuser" : 
-  //       activeClass = clss.active;
-  //       break;
-  //    case "/users" : 
-  //       activeClass = clss.active;
-  //       break;
-  //     default: 
-  //     activeClass = ""; 
-  // };
 
 var activeClassHome;
 var activeClassCreate;

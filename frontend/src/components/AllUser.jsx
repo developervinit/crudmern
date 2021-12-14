@@ -109,18 +109,14 @@ export default function AllUser(){
         setUsers(response.data);
     }
 
-    
-    
     useEffect(() => {
         getAllUsers(slectValue);
     }, [slectValue]);
-
 
     function getSlectVlue(e){
         let value = e.target.value;
         setSlectValue(value);
     }
-
 
     //to delete user with condition
     async function deleteUser(id){
@@ -134,9 +130,7 @@ export default function AllUser(){
         }       
         
     }
-
-    
-    
+   
     async function popUp(id){
         const userData = await getEditUser(id);
         //setBtnPop(true)
@@ -208,5 +202,3 @@ export default function AllUser(){
                   <PopUp trigger={pop} setTrigger={setPop} userObj={pop} />
                </>)
 }
-
-//NOTE - in <PopUp /> element "trigger" and "setTrigger" are props (which can be called atrribute in html). and these props can have any other name also it means "trigger" and "setTrigger" are not predefined keywords of react so can have any name instead of "trigger" and "setTrigger".
