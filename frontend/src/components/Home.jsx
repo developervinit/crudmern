@@ -25,6 +25,15 @@ const classes = makeStyles({
       color: "#91555e",
       fontSize: "54px",
       textShadow: "0px 0px 4px #b2b1b1"
+  },
+  HomePStyle: {
+   color: "#c7a3a9",
+   fontSize: "14px",
+   marginTop: "60px",
+   textAlign: "center",
+   fontFamily: "Red Hat Display, sans-serif",
+   minWidth: "300px",
+   maxWidth: "560px"
   }
 });
 
@@ -37,6 +46,7 @@ export default function Home() {
             <div className={clss.container}>
                <h1 className={clss.hello}>Hello World</h1>
                <Button component={Link} to="/newuser" className={clss.btn}>Create New Employee</Button>
-             </div> 
+             </div>
+             <p  className={clss.HomePStyle}>This crudmern app provides numberous functionalities such as create, delete, edit, and view employee's simple details with filter functionality according department field.</p> 
            </>)
 }

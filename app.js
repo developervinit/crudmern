@@ -12,7 +12,7 @@ app.use(express.json());
 //mounting the routes for employee
 app.use("/", empRoute);
 
-//for erro handling
+//for error handling
 app.use(errorControler);
 
 

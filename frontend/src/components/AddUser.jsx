@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { StrictMode, useState } from 'react';
 import { addNewUser } from "../service/api.js"
 import { FormGroup, FormControl, Input, InputLabel, Button, makeStyles, Select, MenuItem, TextField } from "@material-ui/core";
 import { useHistory } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import ErrPop from "./ErrPop.jsx";
 
-//schema for validadtion
+//schema for validadtion for frontend using "useForm", "yup", "yupResolver".
 const schema = yup.object().shape({
     fullname: yup.string().required(),
     designation: yup.string().required(),
     department: yup.string().required(),
-    email: yup.string().email().required(),
+    email: yup.string().email().strict().lowercase("email must be in lowercase").required(),
     phone: yup.string().min(10).max(10).required()
   })
 
@@ -20,7 +21,7 @@ const classes = makeStyles({
   head: {
     marginTop: "140px",
     fontFamily: "Red Hat Display, sans-serif",
-    color: "#6a6264",
+    color: "#8b646e",
     width: "484px"
   },
   formG: {
@@ -58,7 +59,7 @@ export default function AddUser(){
   const back = useHistory();
   const clss = classes();
 
-  
+  const [ mongoerr, setmongoErr ] = useState([]);
   const [ stuObj, setStuObj ] = useState({
     fullname: "",
     designation: "",
@@ -88,10 +89,19 @@ export default function AddUser(){
   //put data into data-base on invoking this function
   async function formSubmit(){
     try{
-      await addNewUser(stuObj);
       
-       alert("Form is Submited");
-       nextPage.push("/users")
+      //when form is submitted succesfuly then return value is "undefined"
+      //when duplicate email and phone-number error occurs then "addNewUser(stuObj)" returns a comlete error object.
+      const value = await addNewUser(stuObj);
+
+      if(value === undefined){  //when form submitted succesfuly
+          alert("Form is Submited");
+          nextPage.push("/users");
+      }else {   //when duplicata email and phone-number error occurs
+          const message = value.data.message;
+          return setmongoErr(message);
+      }
+      
     }catch(err){
       console.log(err);
     }
@@ -109,6 +119,7 @@ export default function AddUser(){
 
   return(<>
              <h1 className={clss.head}>Add Employee</h1>
+             <ErrPop trigger={mongoerr} setTrigger={setmongoErr} errText={mongoerr} />
 
              {/**<Button onClick={goBackToPage}>GoBack</Button> **/}
 
@@ -176,6 +187,7 @@ export default function AddUser(){
                       autoComplete="hshs"
                  />
                  <p className={clss.err}>{errors.email?.message}</p>
+                 
                </FormControl>
 
                <FormControl>
@@ -189,11 +201,13 @@ export default function AddUser(){
                       value={stuObj.phone}
                  />
                  <p className={clss.err}>{errors.phone?.message}</p>
+                 
                </FormControl>
 
                <Button onClick={handleSubmit(formSubmit)}  className={clss.btn}>Add User</Button>
                <Button onClick={formReset} className={clss.btn}>Reset</Button>
             </FormGroup>
+
             
           </>)
 }

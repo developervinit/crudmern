@@ -1,4 +1,3 @@
-const { find } = require("../model/newEmpModel.js");
 const Employee = require("../model/newEmpModel.js"); //importing model
 
 
@@ -40,16 +39,16 @@ exports.addEmp = (req, res, next) => {
     const newEmp = new Employee(empData); //put extracted data into the model of schema to get validated
 
     try{
-        newEmp.save((err) => {        
-                       if(err){
-                       return next(err);
-                    }
+         newEmp.save(function(err){
+             if(err) {
+                 return next(err);
+                }else {
+                    res.send("form is submited");
+                }
         }); //save() is mongoose's document middleware which is async
-
-        res.json(newEmp); //it send back response to frontend, and then frontend know that form is submited
         }catch(err){
-              res.json({ errorMessage: err.message });
-            }
+           res.json({ errorMessage: err.message });
+        }
 }
 
 
@@ -108,7 +107,7 @@ exports.getEmpById = async (req, res) => {
 
 
 //updating employee data
-exports.updateEmpData = async (req, res) => {
+exports.updateEmpData = async (req, res, next) => {
     const empData = req.body;
     const id = req.params.id;
 
@@ -117,7 +116,7 @@ exports.updateEmpData = async (req, res) => {
           await Employee.findByIdAndUpdate(id, updateEmpData);
           res.json(updateEmpData); //sending back response
     }catch(err){
-          res.json({ erroMessage: err.message } );
+          next(err) //if any error occurs including duplicate-field like email, phone then next() sends that error to the error middleware which is in file errController.js.
     }
     
 }
@@ -130,7 +129,7 @@ exports.updateEmpData = async (req, res) => {
 exports.deleteEmp = async (req, res) => {
     const id = req.params.id;
     try{
-        const delRespns = await Employee.deleteOne({ id: id });
+        const delRespns = await Employee.deleteOne({ _id: id });
         res.send(delRespns);
     }catch(err){
         res.send({ errorMessage: err.message })

@@ -67,8 +67,8 @@ const classes = makeStyles({
             color: "#ab8a93"
         }
     },
-    messg: {
-        color: "dimgrey",
+    errMessg: {
+        color: "#a45f71",
         margin: "22px",
         fontFamily: "Red Hat Display, sans-serif",
     },
@@ -121,6 +121,7 @@ export default function AllUser(){
         setSlectValue(value);
     }
 
+
     //to delete user with condition
     async function deleteUser(id){
         const delValue = prompt("Write 'DELETE' in capital to delete user");
@@ -129,7 +130,7 @@ export default function AllUser(){
             alert(`You did not Write 'DELETE'`);
         }  else {
             await deleteOneUser(id);
-            getAllUsers();
+            getAllUsers(slectValue);
         }       
         
     }
@@ -199,7 +200,7 @@ export default function AllUser(){
                                
                           </TableCell>
                        </TableRow>
-                       )) : <h2 className={clss.messg}>There is NO Employee List to Show</h2>
+                       )) : <h2 className={clss.errMessg}>There is no Employee to Show</h2>
                       }
                    </TableBody>
                   </Table>
@@ -207,3 +208,5 @@ export default function AllUser(){
                   <PopUp trigger={pop} setTrigger={setPop} userObj={pop} />
                </>)
 }
+
+//NOTE - in <PopUp /> element "trigger" and "setTrigger" are props (which can be called atrribute in html). and these props can have any other name also it means "trigger" and "setTrigger" are not predefined keywords of react so can have any name instead of "trigger" and "setTrigger".

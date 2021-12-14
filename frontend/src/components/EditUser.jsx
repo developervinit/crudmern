@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import ErrPop from "./ErrPop.jsx";
 
 
 
@@ -13,7 +14,7 @@ const schema = yup.object().shape({
   fullname: yup.string().required(),
   designation: yup.string().required(),
   department: yup.string().required(),
-  email: yup.string().email().required(),
+  email: yup.string().email().strict().lowercase("email must be in lowercase").required(),
   phone: yup.string().min(10).max(10).required()
 });
 
@@ -52,6 +53,8 @@ export default function EditUser(){
   const nextPage = useHistory(); //this hook to redirect on differnt-page
   const clss = classes();
   const { id } = useParams(); //getting current user's id from url
+
+  const [ mongoerr, setmongoErr ] = useState([]);
   
   const [ stuObj, setStuObj ] = useState({
     fullname: "",
@@ -92,15 +95,26 @@ export default function EditUser(){
     });
   }
 
-  //to submit user's data into database
+  //to submit user's edited data into database 
   async function submitData(){
-      await updateEmp(id, stuObj); //updating the employee data
-      alert("Form is Edited Succesfully");
-      nextPage.push("/users") //redirecting to users-page
+    try{
+      const response = await updateEmp(id, stuObj); //updating the employee data
+      
+      if(response.status === 200){
+        alert("Form is Edited Succesfully");
+        nextPage.push("/users") //redirecting to users-page
+      }else if(response.status === 409) {
+         setmongoErr(response.data.message)
+      }
+    }catch(err){
+         console.log(err);
+    }
+      
   }
 
   return(<>
              <h1 className={clss.head}>Edit Employee Details</h1>
+             <ErrPop trigger={mongoerr} setTrigger={setmongoErr} errText={mongoerr} />
              
              <FormGroup  className={clss.formG}>
                <FormControl>
@@ -164,7 +178,7 @@ export default function EditUser(){
                  <Input
                       {...register("phone")}
                       onChange={getValue}
-
+                      type="number"
                       value={stuObj.phone}
                  />
                  <p className={clss.err}>{errors.phone?.message}</p>

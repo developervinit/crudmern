@@ -1,40 +1,51 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
 const classes = makeStyles({
     container: {
+        top: "129px",
+        padding: "10px",
         position: "fixed",
-        top: "142px",
-        left: "500px",
         minWidth: "300px",
-        backgroundColor: "#f8d8d8cf",
-        padding: "30px",
-        borderRadius: "8px"
+        borderRadius: "8px",
+        backgroundColor: "#e6bfbfcf",
+        left: "0px",
+        right: "0px",
+        width: "300px",
+        margin: "auto"
     },
     close: {
+        top: "-24px",
+        color: "#885757",
+        right: "-24px",
+        cursor: "pointer",
+        display: "inline-block",
         position: "absolute",
-        right: "12px",
-        top: "10px",
-        cursor: "pointer"
+        borderRadius: "10px",
+        backgroundColor: "#f7b6b6",
+        padding: "2px 4px",
+        textAlign: "center"
     },
     image: {
         width: "302px",
         height: "238px"
     },
     cntntWrpr: {
-        fontSize: "20px",
+        fontSize: "16px",
         fontFamily: "Red Hat Display, sans-serif",
     },
     labelValueWraper: {
         marginBottom: "12px",
-        borderBottom: "1px solid #bfafb0"
+        borderBottom: "1px solid #d19e9e"
     },
     label: {
-        fontSize: "16px",
-        color: "#3b3b3b"
+        color: "#583c3c",
+        fontSize: "14px",
     },
     vlaue: {
-        color: "#444444"
+        color: "#583c3c",
+        fontWeight: "600"
     }
 });
 
@@ -53,7 +64,7 @@ export default function PopUp(props){
 
     return (props.trigger) ? (<>
                                 <div className={clss.container}>
-                                    <div className={clss.close} onClick={crossIt} >Close</div>
+                                    <div className={clss.close} onClick={crossIt} ><CloseIcon /></div>
                                     <img className={clss.image} src={demoImage} alt="Default Image" />
                                     <div className={clss.cntntWrpr}>
 

@@ -4,7 +4,8 @@ import Home from "./components/Home.jsx";
 import AddUser from './components/AddUser.jsx';
 import AllUser from './components/AllUser.jsx';
 import EditUser from './components/EditUser.jsx';
-import NotFound from "./components/NotFound.jsx"
+import NotFound from "./components/NotFound.jsx";
+import Footer from "./components/Footer.jsx";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
@@ -19,7 +20,8 @@ function App() {
                 <Route exact path="/edit/:id" component={EditUser}/>
                 <Route component={NotFound} />
                </Switch>
-           </BrowserRouter>
+                <Footer />
+               </BrowserRouter>
            
           );
 }

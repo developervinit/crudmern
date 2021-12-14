@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, makeStyles } from '@material-ui/core';
 import { NavLink, useLocation } from "react-router-dom";
+import clsx from "clsx";
 
 const classes = makeStyles({
   header: {
@@ -21,6 +22,9 @@ const classes = makeStyles({
     padding: "6px 12px",
     borderRadius: "6px",
     boxShadow: "1px 1px 1px 1px #81b841"
+  },
+  active: {
+    boxShadow: "1px 1px 6px 1px #263f09;"
   }
 });
 
@@ -33,12 +37,54 @@ export default function NavBar(){
   //getting current location
   const path = location.pathname;
 
+  // if(path === "/"){
+  //   var activeClass = clss.active
+  // }
+
+  
+
+  // switch (path) {
+  //    case "/" : 
+  //       activeClass = clss.active;
+  //       break;
+  //    case "/newuser" : 
+  //       activeClass = clss.active;
+  //       break;
+  //    case "/users" : 
+  //       activeClass = clss.active;
+  //       break;
+  //     default: 
+  //     activeClass = ""; 
+  // };
+
+var activeClassHome;
+var activeClassCreate;
+var activeClassAllEmp;
+
+  if(path === "/"){
+    activeClassHome = clss.active;
+    activeClassCreate = "";
+    activeClassAllEmp = "";    
+  } 
+  else if(path === "/newuser"){
+    activeClassHome = "";
+    activeClassCreate = clss.active;;
+    activeClassAllEmp = "";    
+  }
+  else if(path === "/users"){
+    activeClassHome = "";
+    activeClassCreate = "";
+    activeClassAllEmp = clss.active;
+  }
+
   return(<>
             <AppBar className={clss.header}>
               <Toolbar>
-                <NavLink className={clss.menus} to="/" exact>HOME</NavLink>
-                { path==="/newuser" ? "" : <NavLink className={clss.menus} to="/newuser" exact>CREATE</NavLink>}
-                <NavLink className={clss.menus} to="/users" exact>EMPLOYEES</NavLink>
+                <NavLink className={clsx(clss.menus, activeClassHome)} to="/" exact>HOME</NavLink>
+
+                <NavLink className={clsx(clss.menus, activeClassCreate)} to="/newuser" exact>CREATE</NavLink> 
+
+                <NavLink className={clsx(clss.menus, activeClassAllEmp)} to="/users" exact>EMPLOYEES</NavLink>
               </Toolbar>
             </AppBar>
 
