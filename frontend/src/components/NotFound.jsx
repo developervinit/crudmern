@@ -1,26 +1,17 @@
 import React from 'react';
-import { makeStyles, Button } from '@material-ui/core';
-
-
-const stylist = makeStyles({
-    messge: {
-        marginTop: '200px'
-    },
-    code: {
-
-    }
-
-});
+import { Button } from '@material-ui/core';
+import { notFndEmpclasses } from "../cssstyle/MuiStyle.js";
 
 
 export default function NotFound(){
 
-    const classes = stylist();
+    const clss = notFndEmpclasses();
 
-    return(<> 
-              <h1 className={classes.code}>404</h1>
-              <h1 className={classes.messge}>OOPS SORRY WE CANT FIND THAT PAGE!</h1>
-              <h4>Either somthing went wrong or the page doesn't exist anymore</h4>
-              <Button variant="contained" color="white" href="/">Home</Button>
-           </>)
+    return(<>
+             <div className={clss.notFndEmp_Contnr}>
+                <h1 className={clss.notFndEmp_Code}>ERROR 404</h1>
+                <h1 className={clss.notFndEmp_Messg}>Oops we can't find that page!</h1>
+                <Button className={clss.notFndEmp_Btn} variant="contained" href="/">Home</Button>
+             </div> 
+            </>)
 }

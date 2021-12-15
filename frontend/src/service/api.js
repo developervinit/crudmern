@@ -4,12 +4,9 @@ import axios from 'axios';
 
 const url = "http://127.0.0.1:8000";  //nodejs server url.
 
-//const urlf = "http://127.0.0.1:3003/users?department=HR"; //dont this url
-
-
-
-//it is to get value from the database currently which is from 'Database/db.json'. 
-export async function getUsers(slectValue) {
+//it is to get value from the database currently which is from 'Database/db.json'.
+//exporting to allEmployee.jsx file 
+export async function getEmployeesFromApi(slectValue) {
      
     try{
         let rspns
@@ -18,14 +15,10 @@ export async function getUsers(slectValue) {
         } else {
              rspns = await axios.get(url);
         }
-
         return rspns;
-    
-         
     }catch(err){
         console.log(err);
     }
-    
 }
 
 
@@ -34,21 +27,22 @@ let headers =  {
 }
 
 //this function sending data (which is coming from the input-form) to this route "http://127.0.0.1:8000/newemp". and this route is in nodejs file.  
-export async function addNewUser(user){
+export async function addNewEmployee(user){
 
     try{
-         await axios.post(`${url}/newemp`, user, headers);
+         return await axios.post(`${url}/newemp`, user, headers);
       }catch(err){
         return err.response;
      }
 
 }
 
+
 //this is to update user. here we are using 'put' method to update the user. this function is exporting to "EditUser.jsx" file.
-export async function updateEmp(id, user){
+//exporting to EditEmployee.jsx file
+export async function updateEmployee(id, user){
     try{
         const rsponse =  await axios.put(`${url}/edit/${id}`, user);
-        //console.log(rsponse);
         return rsponse;
     }catch(err){
         return err.response;
@@ -57,7 +51,8 @@ export async function updateEmp(id, user){
 }
 
 //getting user's data according 'id'
-export async function getEditUser(id){
+//exporting to AllEmployees.jsx, EditEmployee.jsx file fiile
+export async function getEditEmployee(id){
     try{
         const response = await axios.get(`${url}/edit/${id}`);
         return response;
@@ -68,7 +63,8 @@ export async function getEditUser(id){
 }
 
 
-//to delete one document that matches an id 
-export async function deleteOneUser(id){
+//to delete one document that matches an id
+//exporting to AllEmployees.jsx file 
+export async function deleteOneEmployee(id){
     return await axios.delete(`${url}/${id}`);
 }

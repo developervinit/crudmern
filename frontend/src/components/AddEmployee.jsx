@@ -1,11 +1,12 @@
-import React, { StrictMode, useState } from 'react';
-import { addNewUser } from "../service/api.js"
-import { FormGroup, FormControl, Input, InputLabel, Button, makeStyles, Select, MenuItem, TextField } from "@material-ui/core";
+import React, { useState } from 'react';
+import { addNewEmployee } from "../service/api.js"
+import { FormGroup, FormControl, Input, InputLabel, Button, Select, MenuItem } from "@material-ui/core";
 import { useHistory } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ErrPop from "./ErrPop.jsx";
+import { addEmpclasses } from "../cssstyle/MuiStyle.js"; 
 
 //schema for validadtion for frontend using "useForm", "yup", "yupResolver".
 const schema = yup.object().shape({
@@ -14,50 +15,18 @@ const schema = yup.object().shape({
     department: yup.string().required(),
     email: yup.string().email().strict().lowercase("email must be in lowercase").required(),
     phone: yup.string().min(10).max(10).required()
-  })
+  });
 
-//material-ui opbjects for css-classes
-const classes = makeStyles({
-  head: {
-    marginTop: "140px",
-    fontFamily: "Red Hat Display, sans-serif",
-    color: "#8b646e",
-    width: "484px"
-  },
-  formG: {
-
-  },
-  btn: {
-    backgroundColor: "#a8d96f",
-    color: "#4e850d",
-    padding: "8px 24px",
-    fontSize: "16px",
-    fontFamily: "Red Hat Display, sans-serif",
-    boxShadow: "0px 0px 6px 0px #c7c7c7",
-    boxShadow: "1px 1px 1px 1px #81b841",
-    fontWeight: "600",
-    marginBottom: "14px"
-  },
-  inputF: {
-
-  },
-  err: {
-    color: "red",
-    marginTop: "4px"
-  }
-})
-
-
-
+    
 //AddUser component
-export default function AddUser(){
+export default function AddEmployee(){
 
   const { register, formState: { errors }, handleSubmit } = useForm({
     resolver: yupResolver(schema)
   });
   const nextPage = useHistory(); //this hook is to send user on next-page after form is submit.
   const back = useHistory();
-  const clss = classes();
+  const clss = addEmpclasses();
 
   const [ mongoerr, setmongoErr ] = useState([]);
   const [ stuObj, setStuObj ] = useState({
@@ -90,14 +59,14 @@ export default function AddUser(){
   async function formSubmit(){
     try{
       
-      //when form is submitted succesfuly then return value is "undefined"
-      //when duplicate email and phone-number error occurs then "addNewUser(stuObj)" returns a comlete error object.
-      const value = await addNewUser(stuObj);
-
-      if(value === undefined){  //when form submitted succesfuly
+      //when form is submitted succesfuly then return status is 200
+      //when duplicate email and phone-number error occurs then "addNewEmployee(stuObj)" returns status is 409
+      const value = await addNewEmployee(stuObj);
+      
+      if(value.status === 200){  //when form submitted succesfuly
           alert("Form is Submited");
-          nextPage.push("/users");
-      }else {   //when duplicata email and phone-number error occurs
+          nextPage.push("/Allemployees");
+      }else {   //when duplicate email and/or phone-number error occurs
           const message = value.data.message;
           return setmongoErr(message);
       }
@@ -114,19 +83,20 @@ export default function AddUser(){
   }
 
   return(<>
+           <ErrPop trigger={mongoerr} setTrigger={setmongoErr} />
+           <div className={clss.newEmpFormContainer}>
              <h1 className={clss.head}>Add Employee</h1>
-             <ErrPop trigger={mongoerr} setTrigger={setmongoErr} errText={mongoerr} />
-
+             
              {/**<Button onClick={goBackToPage}>GoBack</Button> **/}
 
-             <FormGroup   className={clss.formG}>
+             <FormGroup>
                <FormControl>
                  <InputLabel>Name*</InputLabel>
                  <Input
                       autoFocus={true}
                       {...register("fullname")}
 
-                      className={clss.inputF}
+                      
                       onChange={getValue} 
                       error={false}
                       value={stuObj.fullname}
@@ -134,15 +104,13 @@ export default function AddUser(){
 
                  />
                  <p className={clss.err}>{errors.fullname?.message}</p>
-
-               </FormControl>
+              </FormControl>
 
                <FormControl>
                  <InputLabel>Designation*</InputLabel>
                  <Input
                       {...register("designation")}
 
-                      className={clss.inputF}
                       onChange={getValue} 
                       value={stuObj.designation}
                       autoComplete="hshs"
@@ -157,7 +125,6 @@ export default function AddUser(){
                         id="demo-simple-select"
                         {...register("department")}
 
-                        className={clss.inputF}
                         onChange={getValue}
                         value={stuObj.department}
                          >
@@ -177,7 +144,6 @@ export default function AddUser(){
                  <Input
                       {...register("email")}
 
-                      className={clss.inputF}
                       onChange={getValue} 
                       value={stuObj.email}
                       autoComplete="hshs"
@@ -191,7 +157,6 @@ export default function AddUser(){
                  <Input
                       {...register("phone")}
 
-                      className={clss.inputF}
                       type="number"
                       onChange={getValue} 
                       value={stuObj.phone}
@@ -200,10 +165,10 @@ export default function AddUser(){
                  
                </FormControl>
 
-               <Button onClick={handleSubmit(formSubmit)}  className={clss.btn}>Add User</Button>
-               <Button onClick={formReset} className={clss.btn}>Reset</Button>
-            </FormGroup>
+               <Button onClick={handleSubmit(formSubmit)}  className={clss.AddEmpBtn}>Add User</Button>
+               <Button onClick={formReset} className={clss.AddEmpBtn}>Reset</Button>
+             </FormGroup>
 
-            
+            </div>  
           </>)
 }

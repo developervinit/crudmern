@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { getEditUser, updateEmp } from "../service/api.js"
-import { FormGroup, FormControl, Input, InputLabel, Button, makeStyles, Select, MenuItem } from "@material-ui/core";
+import { getEditEmployee, updateEmployee } from "../service/api.js"
+import { FormGroup, FormControl, Input, InputLabel, Button, Select, MenuItem } from "@material-ui/core";
 import { useHistory, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ErrPop from "./ErrPop.jsx";
+import { editEmpclasses } from "../cssstyle/MuiStyle.js"; 
 
 
 //schema for validadtion
-const schema = yup.object().shape({
+const schema = yup.object().shape({ 
   fullname: yup.string().required(),
   designation: yup.string().required(),
   department: yup.string().required(),
@@ -17,38 +18,13 @@ const schema = yup.object().shape({
   phone: yup.string().min(10).max(10).required()
 });
 
-const classes = makeStyles({
-  head: {
-    marginTop: "100px",
-    fontFamily: "Red Hat Display, sans-serif",
-    color: "#8b646e",
-    width: "550px"
-  },
-  formG: {
 
-  },
-  btn: {
-    marginTop: "32px",
-    backgroundColor: "#a8d96f",
-    color: "#4e850d",
-    padding: "8px 24px",
-    fontSize: "16px",
-    fontFamily: "Red Hat Display, sans-serif",
-    boxShadow: "0px 0px 6px 0px #c7c7c7",
-    boxShadow: "1px 1px 1px 1px #81b841",
-    fontWeight: "600",
-    marginBottom: "14px"
-  },
-  err: {
-    color: "red"
-  }
-});
 
 //this component to edit perticular user's data
-export default function EditUser(){
+export default function EditEmployee(){
 
   const nextPage = useHistory(); //this hook to redirect on differnt-page
-  const clss = classes();
+  const clss = editEmpclasses();
   const { id } = useParams(); //getting current user's id from url
 
   const [ mongoerr, setmongoErr ] = useState([]);
@@ -71,7 +47,7 @@ export default function EditUser(){
 
   //fetching user-value according id, for pre filled fields.
   async function getEditUserData(){
-    const userObj = await getEditUser(id);
+    const userObj = await getEditEmployee(id);
     setStuObj(userObj.data);
 }
  
@@ -93,11 +69,11 @@ export default function EditUser(){
   //to submit user's edited data into database 
   async function submitData(){
     try{
-      const response = await updateEmp(id, stuObj); //updating the employee data
+      const response = await updateEmployee(id, stuObj); //updating the employee data
       
       if(response.status === 200){
         alert("Form is Edited Succesfully");
-        nextPage.push("/users") //redirecting to users-page
+        nextPage.push("/allemployees") //redirecting to users-page
       }else if(response.status === 409) {
          setmongoErr(response.data.message)
       }
@@ -108,10 +84,11 @@ export default function EditUser(){
   }
 
   return(<>
-             <h1 className={clss.head}>Edit Employee Details</h1>
+           <div className={clss.editFormContainer}>
+             <h1 className={clss.editEmp_head}>Edit Employee Details</h1>
              <ErrPop trigger={mongoerr} setTrigger={setmongoErr} errText={mongoerr} />
              
-             <FormGroup  className={clss.formG}>
+             <FormGroup>
                <FormControl>
                  <InputLabel>Name</InputLabel>
                  <Input
@@ -121,7 +98,7 @@ export default function EditUser(){
                       
                       value={stuObj.fullname}
                  />
-                 <p className={clss.err}>{errors.fullname?.message}</p>
+                 <p className={clss.editEmp_err}>{errors.fullname?.message}</p>
 
                </FormControl>
                <FormControl>
@@ -132,7 +109,7 @@ export default function EditUser(){
                       
                       value={stuObj.designation}
                  />
-                 <p className={clss.err}>{errors.designation?.message}</p>
+                 <p className={clss.editEmp_err}>{errors.designation?.message}</p>
                </FormControl>
 
                <FormControl>
@@ -154,7 +131,7 @@ export default function EditUser(){
                            <MenuItem value="Product development">Product development</MenuItem>
                            <MenuItem value="Admin department">Admin department</MenuItem>
                   </Select>
-                  <p className={clss.err}>{errors.department?.message}</p>
+                  <p className={clss.editEmp_err}>{errors.department?.message}</p>
                </FormControl>
 
                <FormControl>
@@ -165,7 +142,7 @@ export default function EditUser(){
 
                       value={stuObj.email}
                  />
-                  <p className={clss.err}>{errors.email?.message}</p>
+                  <p className={clss.editEmp_err}>{errors.email?.message}</p>
                </FormControl>
 
                <FormControl>
@@ -176,11 +153,11 @@ export default function EditUser(){
                       type="number"
                       value={stuObj.phone}
                  />
-                 <p className={clss.err}>{errors.phone?.message}</p>
+                 <p className={clss.editEmp_err}>{errors.phone?.message}</p>
                </FormControl>
-               <Button onClick={handleSubmit(submitData)} className={clss.btn}>Edit</Button>
+               <Button onClick={handleSubmit(submitData)} className={clss.editEmp_btn}>Edit</Button>
              </FormGroup>
-             
+            </div>
              
           </>)
 }
